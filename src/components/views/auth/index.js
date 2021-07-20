@@ -37,7 +37,11 @@ const Auth = () => {
         className="brand-full-logo"
       />
       <div className="auth-container">
-        {view === "signin" ? <Signin /> : <SignUp />}
+        {view === "signin" ? (
+          <Signin onChange={setView} />
+        ) : (
+          <SignUp onChange={setView} />
+        )}
         <Slider {...settings} className="auth-slider">
           <div className="slider-img">
             <h2>
