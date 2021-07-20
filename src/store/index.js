@@ -9,7 +9,7 @@ const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
   RootReducers,
-  process.env === "production"
+  process.env.NODE_ENV === "production"
     ? applyMiddleware(sagaMiddleware)
     : composeWithDevTools(applyMiddleware(sagaMiddleware, logger))
 );
