@@ -1,7 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import PropTypes from "prop-types";
+import { SigninSchema } from "./authSchema";
+import { FormControlLabel, Switch } from "@material-ui/core";
+import { connect, useDispatch } from "react-redux";
+import { signIn } from "../../../actions";
+import { toast } from "react-toastify";
 
-const Signin = () => {
+const Signin = ({ message }) => {
+  const dispatch = useDispatch();
+  const [isRemembered, setIsRemembered] = useState(false);
+
+  const handleSubmit = (values, setSubmitting) => {
+    console.log(values);
+    dispatch(signIn(values));
+    setSubmitting(false);
+  };
+
+  useEffect(() => {
+    if (message !== "") {
+      toast.error(message);
+    }
+  }, [message]);
   return (
     <div className="signin-container">
       <h2>Login</h2>
@@ -11,26 +31,10 @@ const Signin = () => {
       </p>
       <Formik
         initialValues={{ email: "", password: "" }}
-        validate={(values) => {
-          const errors = {};
-          if (!values.email) {
-            errors.email = "Required";
-          } else if (
-            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-          ) {
-            errors.email = "Invalid email address";
-          }
-          if (!values.password) {
-            errors.password = "Required";
-          }
-          return errors;
-        }}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
-        }}
+        validationSchema={SigninSchema}
+        onSubmit={(values, { setSubmitting }) =>
+          handleSubmit(values, setSubmitting)
+        }
       >
         {({ isSubmitting, errors, touched }) => (
           <Form className="sign-in-form">
@@ -47,7 +51,6 @@ const Signin = () => {
                   placeholder="Email address"
                   autocomplete="off"
                 />
-                {console.log(touched)}
               </div>
               <ErrorMessage
                 className="form-error"
@@ -75,6 +78,19 @@ const Signin = () => {
                 component="div"
               />
             </div>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={isRemembered}
+                  onChange={() => setIsRemembered(!isRemembered)}
+                  name="checkedB"
+                  color="primary"
+                  size="small"
+                />
+              }
+              label="Remember me"
+              className="switch"
+            />
             <button
               type="submit"
               disabled={isSubmitting}
@@ -85,8 +101,20 @@ const Signin = () => {
           </Form>
         )}
       </Formik>
+      <div className="other-links">
+        <button>Create an account</button>
+        <button>Forgot password?</button>
+      </div>
     </div>
   );
 };
 
-export default Signin;
+const mapStateToProps = (state) => ({
+  message: state.auth.errorMessage,
+});
+
+Signin.propTypes = {
+  message: PropTypes.string,
+};
+
+export default connect(mapStateToProps)(Signin);

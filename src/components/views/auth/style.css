@@ -118,6 +118,8 @@
   border: none;
   outline: none;
   font-weight: 500;
+  font-family: "Exo 2", sans-serif;
+  font-size: 1.2em;
 }
 
 .input.error input::placeholder {
@@ -137,10 +139,74 @@
   outline: none;
   text-transform: uppercase;
   font-weight: 600;
+  display: block;
+  cursor: pointer;
+  margin: 30px 0px 15px 0px;
+  font-family: "Exo", sans-serif;
 }
 
 .form-error {
   font-size: 0.7em;
   font-weight: 600;
   color: #ff0000;
+}
+
+.switch .MuiTypography-root {
+  font-size: 0.8em;
+}
+
+.other-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.other-links button {
+  font-family: "Exo 2", sans-serif;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #0000ff;
+  margin-bottom: 5px;
+}
+
+@media (max-width: 1024px) {
+  .auth-container {
+    flex-direction: column;
+  }
+
+  .auth-container > div {
+    width: 100%;
+  }
+
+  .signin-container {
+    padding: 30px;
+  }
+
+  .auth-slider {
+    display: none;
+  }
+
+  .sign-in-form .input-group {
+    width: 100%;
+  }
+
+  .signin-container p {
+    text-align: center;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .signin-container h2 {
+    text-align: center;
+  }
+
+  .signin-container p span {
+    display: none;
+  }
+
+  .sign-in-btn {
+    width: 100%;
+  }
 }

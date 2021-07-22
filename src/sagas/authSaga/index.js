@@ -1,10 +1,21 @@
 import { put, takeLatest, fork } from "redux-saga/effects";
 import * as actionTypes from "../../actions/actionTypes";
+import { login } from "../../api";
 
 //WORKERS
-function* signinWorker() {
-  // const banks = yield fetchBanks();
-  yield put({ type: actionTypes.LOGIN, payload: true });
+function* signinWorker(payload) {
+  try {
+    const res = yield login(payload);
+    console.log(res, "saga");
+    if (!res.error) {
+      yield put({ type: actionTypes.COMPLETE_LOGIN, payload: res });
+    } else {
+      yield put({
+        type: actionTypes.ERROR_LOGIN,
+        payload: "Something went wrong",
+      });
+    }
+  } catch (error) {}
 }
 
 //WATCHERS
