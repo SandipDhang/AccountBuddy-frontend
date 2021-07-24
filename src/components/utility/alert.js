@@ -1,7 +1,17 @@
-import React from "react";
+import { toast } from "react-toastify";
+export class Alert {
+  constructor(message) {
+    this.message = message;
+  }
+  error() {
+    toast.error(this.message);
+  }
 
-const Alert = ({ msg }) => {
-  return <p>{msg}</p>;
-};
+  success() {
+    toast.success(this.message);
+  }
 
-export default Alert;
+  warn() {
+    toast.warning(this.message);
+  }
+}

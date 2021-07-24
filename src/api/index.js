@@ -1,12 +1,15 @@
-import Axios from "axios";
+import axios from "axios";
 
-const BaseUrl = "https://accounts-buddy.herokuapp.com/api";
+const baseURL = "https://accounts-buddy.herokuapp.com/api/";
 
-export const login = async (data) => {
-  try {
-    const response = await Axios.post(`${BaseUrl}/auth/login`, data);
-    return response;
-  } catch (error) {
-    return { error: true };
-  }
-};
+export default axios.create({ baseURL, withCredentials: true });
+
+// export const login = async (data) => {
+//   console.log(data, "inAPI");
+//   try {
+//     const response = await api.post(`auth/login`, data);
+//     return response;
+//   } catch (error) {
+//     return { isError: true, error: error.response.data };
+//   }
+// };

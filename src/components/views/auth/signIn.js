@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import PropTypes from "prop-types";
 import { SigninSchema } from "./authSchema";
 import { FormControlLabel, Switch } from "@material-ui/core";
 import { connect, useDispatch } from "react-redux";
 import { signIn } from "../../../actions";
-import { toast } from "react-toastify";
 
-const Signin = ({ message }) => {
+const Signin = ({ isLoggedIn }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [isRemembered, setIsRemembered] = useState(false);
 
   const handleSubmit = (values, setSubmitting) => {
@@ -18,10 +19,10 @@ const Signin = ({ message }) => {
   };
 
   useEffect(() => {
-    if (message !== "") {
-      toast.error(message);
-    }
-  }, [message]);
+    if (isLoggedIn) history.push("/dashboard");
+    // eslint-disable-next-line
+  }, [isLoggedIn]);
+
   return (
     <div className="signin-container">
       <h2>Login</h2>
@@ -110,11 +111,11 @@ const Signin = ({ message }) => {
 };
 
 const mapStateToProps = (state) => ({
-  message: state.auth.errorMessage,
+  isLoggedIn: state.auth.isLoggedIn,
 });
 
 Signin.propTypes = {
-  message: PropTypes.string,
+  isLoggedIn: PropTypes.bool,
 };
 
 export default connect(mapStateToProps)(Signin);
