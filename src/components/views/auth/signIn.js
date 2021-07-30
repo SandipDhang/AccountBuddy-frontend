@@ -6,16 +6,21 @@ import { SigninSchema } from "./authSchema";
 import { FormControlLabel, Switch } from "@material-ui/core";
 import { connect, useDispatch } from "react-redux";
 import { signIn } from "../../../actions";
+import { motion } from "framer-motion";
 
-const Signin = ({ isLoggedIn }) => {
+const Signin = ({ isLoggedIn, changeView, variants }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [isRemembered, setIsRemembered] = useState(false);
 
+  const verifyEmail = () => {
+    changeView(2);
+  };
+
   const handleSubmit = (values, setSubmitting) => {
     console.log(values);
-    dispatch(signIn(values));
-    setSubmitting(false);
+    dispatch(signIn({ values, verifyEmail }));
+    setSubmitting(true);
   };
 
   useEffect(() => {
@@ -24,11 +29,16 @@ const Signin = ({ isLoggedIn }) => {
   }, [isLoggedIn]);
 
   return (
-    <div className="signin-container">
+    <motion.div
+      className="signin-container"
+      variants={variants}
+      initial="hidden"
+      animate="visible"
+    >
       <h2>Login</h2>
       <p>
         See your growth and enjoy your coffee
-        <span class="material-icons">free_breakfast</span>
+        <span className="material-icons">free_breakfast</span>
       </p>
       <Formik
         initialValues={{ email: "", password: "" }}
@@ -45,12 +55,12 @@ const Signin = ({ isLoggedIn }) => {
                   errors.email && touched.email ? "error" : ""
                 }`}
               >
-                <span class="material-icons">person_outline</span>
+                <span className="material-icons">person_outline</span>
                 <Field
                   type="email"
                   name="email"
                   placeholder="Email address"
-                  autocomplete="off"
+                  autoComplete="off"
                 />
               </div>
               <ErrorMessage
@@ -65,12 +75,12 @@ const Signin = ({ isLoggedIn }) => {
                   errors.password && touched.password ? "error" : ""
                 }`}
               >
-                <span class="material-icons">vpn_key</span>
+                <span className="material-icons">vpn_key</span>
                 <Field
                   type="password"
                   name="password"
                   placeholder="Password"
-                  autocomplete="off"
+                  autoComplete="off"
                 />
               </div>
               <ErrorMessage
@@ -95,18 +105,18 @@ const Signin = ({ isLoggedIn }) => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="sign-in-btn"
+              className={`sign-in-btn ${isSubmitting ? "disabled" : ""}`}
             >
-              Log in
+              {isSubmitting ? "Logging in..." : "Log in"}
             </button>
           </Form>
         )}
       </Formik>
       <div className="other-links">
-        <button>Create an account</button>
-        <button>Forgot password?</button>
+        <button onClick={() => changeView(1)}>Create an account</button>
+        <button onClick={() => changeView(3)}>Forgot password?</button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

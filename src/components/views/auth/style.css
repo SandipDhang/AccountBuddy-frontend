@@ -143,6 +143,13 @@
   cursor: pointer;
   margin: 30px 0px 15px 0px;
   font-family: "Exo", sans-serif;
+  transition: 0.4s;
+  opacity: 1;
+}
+
+.sign-in-btn.disabled {
+  opacity: 0.4;
+  cursor: no-drop;
 }
 
 .form-error {
@@ -169,6 +176,43 @@
   outline: none;
   color: #0000ff;
   margin-bottom: 5px;
+}
+
+.signup-form-select {
+  width: 80%;
+  border: none;
+  outline: none;
+  padding-right: 20px;
+  font-weight: 600;
+  font-family: "Exo 2", sans-serif;
+  font-size: 1.2em;
+  text-transform: capitalize;
+}
+
+.otp {
+  margin-top: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.otp-container input {
+  padding: 10px;
+  width: 50px !important;
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid #0000ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-family: "Exo 2", sans-serif;
+  font-size: 1.2em;
+}
+
+.otp-container span {
+  margin: 0px 0px 0px 15px;
+  background: #000;
 }
 
 @media (max-width: 1024px) {
@@ -208,5 +252,21 @@
 
   .sign-in-btn {
     width: 100%;
+  }
+
+  .signup-form-select {
+    width: 85%;
+    border: none;
+    outline: none;
+    padding-right: 20px;
+  }
+
+  .otp {
+    justify-content: center;
+  }
+
+  .otp-container input {
+    padding: 5px;
+    width: 40px !important;
   }
 }

@@ -1,3 +1,18 @@
 export const LOGIN = "LOGIN";
 export const COMPLETE_LOGIN = "COMPLETE_LOGIN";
 export const ERROR_LOGIN = "ERROR_LOGIN";
+
+export const GET_ALL_INDUSTRIES = "GET_ALL_INDUSTRIES";
+export const COMPLETE_INDUSTRIES = "COMPLETE_INDUSTRIES";
+
+export const SIGNUP = "SIGNUP";
+export const COMPLETE_SIGNUP = "COMPLETE_SIGNUP";
+export const ERROR_SIGNUP = "ERROR_SIGNUP";
+
+export const SEND_OTP = "SEND_OTP";
+export const COMPLETE_SEND_OTP = "COMPLETE_SEND_OTP";
+export const ERROR_SEND_OTP = "ERROR_SEND_OTP";
+
+export const VERIFY_OTP = "VERIFY_OTP";
+export const COMPLETE_VERIFY_OTP = "COMPLETE_VERIFY_OTP";
+export const ERROR_VERIFY_OTP = "ERROR_VERIFY_OTP";

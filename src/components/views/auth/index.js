@@ -4,6 +4,8 @@ import "./style.css";
 import Signin from "./signIn";
 import Slider from "react-slick";
 import SignUp from "./signUp";
+import Otp from "./otp";
+import ForgotPassword from "./forgotPassword";
 
 const variants = {
   visible: { opacity: 1 },
@@ -22,7 +24,14 @@ const settings = {
 };
 
 const Auth = () => {
-  const [view, setView] = useState("signin");
+  const [step, setStep] = useState(0);
+  const childrens = [
+    <Signin changeView={setStep} variants={variants} />,
+    <SignUp changeView={setStep} variants={variants} />,
+    <Otp changeView={setStep} variants={variants} />,
+    <ForgotPassword changeView={setStep} variants={variants} />,
+  ];
+
   return (
     <motion.div
       variants={variants}
@@ -37,11 +46,7 @@ const Auth = () => {
         className="brand-full-logo"
       />
       <div className="auth-container">
-        {view === "signin" ? (
-          <Signin onChange={setView} />
-        ) : (
-          <SignUp onChange={setView} />
-        )}
+        {childrens[step]}
         <Slider {...settings} className="auth-slider">
           <div className="slider-img">
             <h2>

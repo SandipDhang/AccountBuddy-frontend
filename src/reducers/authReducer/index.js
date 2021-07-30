@@ -5,6 +5,7 @@ const initialState = {
   isLoading: false,
   isError: false,
   errorMessage: "",
+  industries: [],
 };
 
 const AuthReducer = (state = initialState, action) => {
@@ -14,6 +15,14 @@ const AuthReducer = (state = initialState, action) => {
     case actionTypes.COMPLETE_LOGIN:
       return { ...state, isLoading: false, isLoggedIn: true };
     case actionTypes.ERROR_LOGIN:
+      return { ...state, isLoading: false };
+    case actionTypes.GET_ALL_INDUSTRIES:
+      return { ...state };
+    case actionTypes.COMPLETE_INDUSTRIES:
+      return { ...state, industries: action.payload };
+    case actionTypes.COMPLETE_SIGNUP:
+      return { ...state, isLoading: false };
+    case actionTypes.ERROR_SIGNUP:
       return { ...state, isLoading: false };
 
     default:
