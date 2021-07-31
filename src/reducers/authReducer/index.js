@@ -6,6 +6,7 @@ const initialState = {
   isError: false,
   errorMessage: "",
   industries: [],
+  otp: "",
 };
 
 const AuthReducer = (state = initialState, action) => {
@@ -24,6 +25,8 @@ const AuthReducer = (state = initialState, action) => {
       return { ...state, isLoading: false };
     case actionTypes.ERROR_SIGNUP:
       return { ...state, isLoading: false };
+    case actionTypes.COMPLETE_SEND_OTP:
+      return { ...state, otp: action.payload };
 
     default:
       return { ...state };

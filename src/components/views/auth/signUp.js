@@ -17,6 +17,7 @@ const SignUp = ({ changeView, variants, industries }) => {
 
   const handleSubmit = (values, setSubmitting) => {
     console.log(values);
+    sessionStorage.setItem("ab_email", values.email);
     setSubmitting(true);
     const data = {
       industry_id: values.industry,

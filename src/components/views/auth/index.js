@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { connect, useDispatch } from "react-redux";
 import "./style.css";
 import Signin from "./signIn";
 import Slider from "react-slick";
 import SignUp from "./signUp";
 import Otp from "./otp";
 import ForgotPassword from "./forgotPassword";
+import { sendOtp } from "../../../actions";
 
 const variants = {
   visible: { opacity: 1 },
@@ -24,6 +26,7 @@ const settings = {
 };
 
 const Auth = () => {
+  const dispatch = useDispatch();
   const [step, setStep] = useState(0);
   const childrens = [
     <Signin changeView={setStep} variants={variants} />,
@@ -31,6 +34,12 @@ const Auth = () => {
     <Otp changeView={setStep} variants={variants} />,
     <ForgotPassword changeView={setStep} variants={variants} />,
   ];
+
+  useEffect(() => {
+    if (step === 2)
+      dispatch(sendOtp({ email: sessionStorage.getItem("ab_email") }));
+    // eslint-disable-next-line
+  }, [step]);
 
   return (
     <motion.div
@@ -80,4 +89,4 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+export default connect()(Auth);

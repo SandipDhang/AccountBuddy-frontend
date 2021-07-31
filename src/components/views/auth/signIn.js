@@ -19,6 +19,7 @@ const Signin = ({ isLoggedIn, changeView, variants }) => {
 
   const handleSubmit = (values, setSubmitting) => {
     console.log(values);
+    sessionStorage.setItem("ab_email", values.email);
     dispatch(signIn({ values, verifyEmail }));
     setSubmitting(true);
   };

@@ -1,6 +1,11 @@
 import { put, takeLatest, fork } from "redux-saga/effects";
 import * as actionTypes from "../../actions/actionTypes";
-import { getAllIndustryTypes, login, signup } from "../../api/auth/auth";
+import {
+  getAllIndustryTypes,
+  login,
+  sendOtp,
+  signup,
+} from "../../api/auth/auth";
 import { Alert } from "../../components/utility/alert";
 
 //WORKERS
@@ -19,8 +24,8 @@ function* signinWorker(data) {
       });
     }
   } catch (error) {
-    new Alert("Something went wrong").error();
-    console.log(error);
+    new Alert(error.response.data.msg).error();
+    if (error.response.status === 410) data.payload.verifyEmail();
   }
 }
 
@@ -56,6 +61,17 @@ function* signUpWorker(data) {
   }
 }
 
+function* sendOtpWorker(email) {
+  try {
+    const otp = yield sendOtp(email.payload);
+    if (!otp.data.error) {
+      new Alert("OTP sent successfully").success();
+    }
+  } catch (error) {
+    new Alert("Something went wrong. Please try again later").error();
+  }
+}
+
 //WATCHERS
 function* signinWatcher() {
   yield takeLatest(actionTypes.LOGIN, signinWorker);
@@ -69,11 +85,16 @@ function* signUpWatcher() {
   yield takeLatest(actionTypes.SIGNUP, signUpWorker);
 }
 
+function* sendOtpWatcher() {
+  yield takeLatest(actionTypes.SEND_OTP, sendOtpWorker);
+}
+
 //ASSEMBLY
 function* authSaga() {
   yield fork(signinWatcher);
   yield fork(getIndustryWatcher);
   yield fork(signUpWatcher);
+  yield fork(sendOtpWatcher);
 }
 
 export default authSaga();
