@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { SigninSchema } from "./authSchema";
 import { FormControlLabel, Switch } from "@material-ui/core";
 import { connect, useDispatch } from "react-redux";
-import { signIn } from "../../../actions";
+import { autoLogin, signIn } from "../../../actions";
 import { motion } from "framer-motion";
 
 const Signin = ({ isLoggedIn, changeView, variants }) => {
@@ -28,6 +28,11 @@ const Signin = ({ isLoggedIn, changeView, variants }) => {
     if (isLoggedIn) history.push("/dashboard");
     // eslint-disable-next-line
   }, [isLoggedIn]);
+
+  useEffect(() => {
+    dispatch(autoLogin());
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <motion.div

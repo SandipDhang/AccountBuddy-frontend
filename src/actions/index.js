@@ -1,5 +1,9 @@
 import * as actionTypes from "./actionTypes";
 
+export const autoLogin = () => ({
+  type: actionTypes.AUTO_LOGIN,
+});
+
 export const signIn = (data) => ({
   type: actionTypes.LOGIN,
   payload: data,
@@ -21,5 +25,5 @@ export const sendOtp = (email) => ({
 
 export const verifyOtp = (otp) => ({
   type: actionTypes.VERIFY_OTP,
-  paylaod: otp,
+  payload: otp,
 });

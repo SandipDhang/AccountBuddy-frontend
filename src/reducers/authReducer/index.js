@@ -11,6 +11,12 @@ const initialState = {
 
 const AuthReducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.AUTO_LOGIN:
+      return { ...state, isLoading: true };
+    case actionTypes.COMPLETE_AUTO_LOGIN:
+      return { ...state, isLoading: false, isLoggedIn: true };
+    case actionTypes.ERROR_AUTO_LOGIN:
+      return { ...state, isLoading: false };
     case actionTypes.LOGIN:
       return { ...state, isLoading: true };
     case actionTypes.COMPLETE_LOGIN:
@@ -26,7 +32,11 @@ const AuthReducer = (state = initialState, action) => {
     case actionTypes.ERROR_SIGNUP:
       return { ...state, isLoading: false };
     case actionTypes.COMPLETE_SEND_OTP:
-      return { ...state, otp: action.payload };
+      return { ...state };
+    case actionTypes.VERIFY_OTP:
+      return { ...state };
+    case actionTypes.COMPLETE_VERIFY_OTP:
+      return { ...state, isLoggedIn: true };
 
     default:
       return { ...state };

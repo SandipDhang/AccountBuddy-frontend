@@ -1,3 +1,7 @@
+export const AUTO_LOGIN = "AUTO_LOGIN";
+export const COMPLETE_AUTO_LOGIN = "COMPLETE_AUTO_LOGIN";
+export const ERROR_AUTO_LOGIN = "ERROR_AUTO_LOGIN";
+
 export const LOGIN = "LOGIN";
 export const COMPLETE_LOGIN = "COMPLETE_LOGIN";
 export const ERROR_LOGIN = "ERROR_LOGIN";

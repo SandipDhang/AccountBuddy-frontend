@@ -1,13 +1,27 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { motion } from "framer-motion";
+import { connect, useDispatch } from "react-redux";
 import OtpInput from "react-otp-input";
+import { verifyOtp } from "../../../actions";
 
 const Otp = ({ changeView, variants }) => {
+  const history = useHistory();
+  const dispatch = useDispatch();
   const [otp, setOtp] = useState("");
   const handleOtp = (otp) => setOtp(otp);
 
+  const handleSuccess = () => {
+    history.push("/dashboard");
+  };
+
   const handleSubmit = () => {
-    console.log(otp);
+    dispatch(
+      verifyOtp({
+        details: { email: sessionStorage.getItem("ab_email"), otp },
+        handleSuccess,
+      })
+    );
   };
   return (
     <motion.div
@@ -35,4 +49,4 @@ const Otp = ({ changeView, variants }) => {
   );
 };
 
-export default Otp;
+export default connect()(Otp);
